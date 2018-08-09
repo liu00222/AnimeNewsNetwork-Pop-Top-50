@@ -1,0 +1,41 @@
+---
+title: "Anime News Network - Popularity Top 50"
+output: word_document
+---
+
+*This is a practice to get the top 50 animes based on the popularity rank of Anime News Network. *
+
+- Anime News Network
+```{r}
+library(RCurl)
+library(XML)
+```
+
+- Define the http header
+```{r}
+header = c(
+  "User-Agent"="Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
+  "Accept"="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language"="en-us",
+  "Connection"="keep-alive",
+  "Accept-Charset"="GB2312,utf-8;q=0.7,*;q=0.7"
+)
+```
+
+- Simulate the access
+```{r}
+url = "https://www.animenewsnetwork.com/encyclopedia/ratings-anime.php?top50=popular"
+webpage = getURL(url,httpheader=header)
+```
+
+- Manage the html tree structure
+```{r}
+pagetree = htmlTreeParse(webpage,encoding="UTF-8", error=function(...){}, useInternalNodes = TRUE,trim=TRUE)
+```
+
+- Locate the node
+```{r}
+xpath = getNodeSet(pagetree, "//td//a[@href]/text()")
+info = sapply(xpath,xmlValue) 
+info
+```
