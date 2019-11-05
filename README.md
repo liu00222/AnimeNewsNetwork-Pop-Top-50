@@ -1,2 +1,5 @@
 # AnimeNewsNetwork-Pop-Top-50
-The data is from Anime News Network. The rank is based on popularity instead of rates. 
+
+_by << liu00222 >>_
+
+This is a simple example of web crawler using R.
